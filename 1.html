@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .text {
+      font-size: 48px;
+      font-weight: bold;
+      color: #00796b;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      animation: bounce 2s infinite;
+      z-index: 2;
+    }
+
+    .character {
+      font-size: 80px;
+      margin-top: 20px;
+      animation: waddle 3s infinite;
+      z-index: 2;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes waddle {
+      0%, 100% {
+        transform: rotate(0deg) scale(1);
+      }
+      25% {
+        transform: rotate(-10deg) scale(1.1) translateX(-10px);
+      }
+      75% {
+        transform: rotate(10deg) scale(1.1) translateX(10px);
+      }
+    }
+
+    .sparkle {
+      position: absolute;
+      pointer-events: none;
+      animation: sparkle 2s infinite;
+      font-size: 24px;
+      z-index: 1;
+    }
+
+    @keyframes sparkle {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translate(100px, -100px) rotate(180deg);
+        opacity: 0;
+      }
+    }
+
+    .flower {
+      position: absolute;
+      font-size: 20px;
+      animation: falling linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes falling {
+      0% {
+        transform: translateY(-100%) rotate(0deg);
+      }
+      100% {
+        transform: translateY(1000%) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="container">
+    <div class="text">Semangat ya ki!</div>
+    <div class="character">🐧</div>
+    <div class="sparkle" style="top: 40%; left: 30%">✨</div>
+    <div class="sparkle" style="top: 30%; left: 60%">✨</div>
+    <div class="sparkle" style="top: 60%; left: 40%">✨</div>
+  </div>
+
+  <script>
+    const flowers = ['🌸', '🌺', '🌼', '🌹', '🌷'];
+    const container = document.getElementById('container');
+
+    function createFlower() {
+      const flower = document.createElement('div');
+      flower.className = 'flower';
+      flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+      flower.style.left = Math.random() * 100 + '%';
+      flower.style.animation = `falling ${Math.random() * 3 + 2}s linear infinite`;
+      container.appendChild(flower);
+
+      // Hapus bunga setelah animasi selesai untuk menghemat memori
+      setTimeout(() => {
+        flower.remove();
+      }, 5000);
+    }
+
+    // Buat bunga baru setiap 300ms
+    setInterval(createFlower, 300);
+  </script>
+</body>
+</html>
